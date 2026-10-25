@@ -4,10 +4,14 @@ An iOS app that lists restaurants and shows their details, built with UIKit and 
 
 ## Features
 
-- Restaurant list with images and an empty state view
-- Restaurant detail screen
+- Tab bar with **Home** and **Favorite** tabs
+- Restaurant list with images, search and an empty state view
+- Restaurant detail screen with description, menu (foods and drinks) and customer reviews
+- Add a review to a restaurant
+- Favorite a restaurant from the detail screen, stored offline with Realm
+- Error alerts with a retry action on the list and detail screens
 - Remote image loading and caching
-- Unit tests for the interactors, presenters, loaders and HTTP client
+- Unit tests for the interactors, presenters, loaders, HTTP client and favorite store
 
 ## Demo
 
@@ -18,8 +22,10 @@ An iOS app that lists restaurants and shows their details, built with UIKit and 
 ## Tech Stack
 
 - Swift, UIKit (XIB-based views)
-- [RxSwift](https://github.com/ReactiveX/RxSwift)
+- [RxSwift](https://github.com/ReactiveX/RxSwift) (including RxTest for tests)
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
+- [Realm Swift](https://github.com/realm/realm-swift) for local favorites
+- [netfox](https://github.com/kasketis/netfox) for network debugging
 - XCTest
 - Swift Package Manager
 
@@ -31,16 +37,23 @@ Each feature module follows VIPER (View, Interactor, Presenter, Entity/Model, Ro
 RestaurantApp/
 ├── App/                    # AppDelegate, SceneDelegate, launch screen
 ├── Core/
-│   ├── Infrastructure/     # HTTPClient protocol, URLSessionHTTPClient
-│   └── Services/           # Remote list/detail loaders, NetworkError
+│   ├── Infrastructure/
+│   │   ├── Network/        # HTTPClient protocol, URLSessionHTTPClient
+│   │   ├── Realm/          # Realm object and favorite restaurant store
+│   │   └── FavoriteStore.swift
+│   └── Services/
+│       ├── Protocols/      # RestaurantListLoader, RestaurantDetailLoader
+│       ├── Remote/         # Remote list/detail loaders, NetworkError
+│       └── Local/          # LocalRestaurantListLoader (favorites)
 └── Modules/
+    ├── Tabbar/             # MainTabBarController, AppRouter (Home and Favorite tabs)
     ├── RestaurantList/     # Protocols, Interactor, Presenter, Router, Views
-    └── RestaurantDetail/   # Protocols, Interactor, Presenter, Router, View
+    └── RestaurantDetail/   # Protocols, Interactor, Presenter, Router, Views
 
 RestaurantAppTests/         # Unit tests mirroring the source layout
 ```
 
-The networking layer sits behind the `HTTPClient` protocol, so loaders and interactors can be tested with stubs.
+The networking layer sits behind the `HTTPClient` protocol, and favorites sit behind the `FavoriteStore` protocol. Loaders and interactors depend on these protocols, so they can be tested with stubs and spies. The Favorite tab reuses the list module with a `LocalRestaurantListLoader` that reads from the Realm store.
 
 ## Requirements
 
@@ -85,7 +98,8 @@ Because every dependency sits behind a protocol, the system under test (SUT) can
 | --- | --- | --- |
 | `HTTPClientSpy` ([XCTestHelpers.swift](RestaurantAppTests/XCTestHelpers.swift)) | `HTTPClient` | `RemoteRestaurantListLoader`, `RemoteRestaurantDetailLoader` |
 | `RestaurantListLoaderSpy` | `RestaurantListLoader` | `RestaurantListInteractor` |
-| `RestaurantDetailLoaderSpy` | `RestaurantDetailLoader` | `RestaurantDetailInteractor` |
+| `RestaurantDetailLoaderSpy` | `RestaurantDetailLoader` and `FavoriteRestaurantManager` | `RestaurantDetailInteractor` (detail, add review, favorite toggle) |
+| `FavoriteRestaurantStoreSpy` | `FavoriteRestaurantStore` | `LocalRestaurantListLoader` |
 | `ViewSpy` | View, Interactor and Router protocols | `RestaurantListPresenter`, `RestaurantDetailPresenter` |
 
 The HTTP client tests use a `URLProtocolStub` instead. It stubs responses at the `URLSession` level.
