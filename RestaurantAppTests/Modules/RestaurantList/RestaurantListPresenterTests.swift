@@ -234,7 +234,7 @@ final class RestaurantListPresenterTests: XCTestCase {
         // MARK: - Router
         private(set) var routerId: String?
         
-        static func createModule() -> UIViewController {
+        static func createModule(loader: RestaurantListLoader) -> UIViewController {
             return UIViewController()
         }
         

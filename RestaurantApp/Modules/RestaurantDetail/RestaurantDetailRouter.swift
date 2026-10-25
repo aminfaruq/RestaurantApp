@@ -15,7 +15,9 @@ final class RestaurantDetailRouter: RestaurantDetailRouterProtocol {
         let url = URL(string: "https://restaurant-api.dicoding.dev")!
         let client = URLSessionHTTPClient()
         let loader = RemoteRestaurantDetailLoader(url: url, client: client)
-        let interactor = RestaurantDetailInteractor(loader: loader)
+        let store = RealmFavoriteRestaurantStore()
+        let manager = LocalRestaurantListLoader(store: store)
+        let interactor = RestaurantDetailInteractor(loader: loader, favoriteManager: manager)
         let router = RestaurantDetailRouter()
         
         view.presenter = presenter

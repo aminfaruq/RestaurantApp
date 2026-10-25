@@ -28,13 +28,23 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         spy.fetchRestaurantDetailStub = .error(expectedError)
         sut.viewDidLoad()
         
-        XCTAssertEqual(spy.interactorCallCount, 1)
-        XCTAssertEqual(spy.interactorMessages, [.requestRestaurant(id: id)])
-        XCTAssertEqual(spy.viewMessages, [
-            .showLoading,
-            .hideLoading,
-            .showError(expectedError.localizedDescription)
-        ])
+        XCTAssertEqual(spy.interactorCallCount, 2)
+        XCTAssertEqual(spy.interactorMessages, [
+            .requestRestaurant(id: id),
+            .isFavorite(id: id)]
+        )
+        XCTAssertTrue(spy.viewMessages.contains(.showError(expectedError.localizedDescription)))
+    }
+    
+    func test_viewDidLoad_checksFavoriteStatus() {
+        let id = "any-id"
+        let (sut, spy) = makeSUT(id: id)
+        spy.isFavoriteStub = .just(true)
+        
+        sut.viewDidLoad()
+        
+        XCTAssertTrue(spy.interactorMessages.contains(.isFavorite(id: id)))
+        XCTAssertTrue(spy.viewMessages.contains(.setFavoriteStatus(isFavorite: true)))
     }
     
     func test_viewDidLoad_deliversRestaurantOnSuccess() {
@@ -45,8 +55,8 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         spy.fetchRestaurantDetailStub = .just(expectedResult)
         sut.viewDidLoad()
         
-        XCTAssertEqual(spy.interactorCallCount, 1)
-        XCTAssertEqual(spy.interactorMessages, [.requestRestaurant(id: id)])
+        XCTAssertEqual(spy.interactorCallCount, 2)
+        XCTAssertEqual(spy.interactorMessages, [.requestRestaurant(id: id), .isFavorite(id: id)])
         XCTAssertEqual(spy.viewMessages, [
             .showLoading,
             .hideLoading,
@@ -104,6 +114,22 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         sut.didDismissPopup()
         
         XCTAssertEqual(spy.interactorCallCount, 1)
+    }
+    
+    func test_didTapFavoriteButton_togglesFavoriteStatusOnSuccess() {
+        let id = "any-id"
+        let (sut, spy) = makeSUT(id: id)
+        let restaurantDetail = makeRestaurant(id: id)
+        let expectedRestaurant = restaurantDetail.toRestaurantModel()
+        
+        spy.fetchRestaurantDetailStub = .just(restaurantDetail)
+        sut.viewDidLoad()
+        
+        spy.toggleFavoriteStub = .just(true)
+        sut.didTapFavoriteButton()
+        
+        XCTAssertTrue(spy.interactorMessages.contains(.toggleFavorite(restaurant: expectedRestaurant)))
+        XCTAssertTrue(spy.viewMessages.contains(.setFavoriteStatus(isFavorite: true)))
     }
     
     func test_view_shouldHaveBeenDeallocated() {
@@ -167,7 +193,6 @@ final class RestaurantDetailPresenterTests: XCTestCase {
     }
     
     private class ViewSpy: RestaurantDetailViewProtocol, RestaurantDetailInteractorProtocol, RestaurantDetailRouterProtocol {
-       
         
         // MARK: View
         enum ViewMessage: Equatable {
@@ -177,6 +202,7 @@ final class RestaurantDetailPresenterTests: XCTestCase {
             case showMenus(_ results: [String])
             case showError(_ message: String)
             case showPopup
+            case setFavoriteStatus(isFavorite: Bool)
         }
         
         private(set) var viewMessages = [ViewMessage]()
@@ -205,10 +231,16 @@ final class RestaurantDetailPresenterTests: XCTestCase {
             viewMessages.append(.showPopup)
         }
         
+        func setFavoriteStatus(isFavorite: Bool) {
+            viewMessages.append(.setFavoriteStatus(isFavorite: isFavorite))
+        }
+        
         // MARK: Interactor
         enum InteractorMessage: Equatable {
             case requestRestaurant(id: String)
             case requestAddReview(body: AddReviewBody)
+            case isFavorite(id: String)
+            case toggleFavorite(restaurant: RestaurantModel)
         }
         
         var interactorCallCount: Int {
@@ -220,6 +252,9 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         var fetchRestaurantDetailStub: Single<RestaurantDetailModel> = .never()
         var addReviewStub: Completable = .never()
         
+        var isFavoriteStub: Single<Bool> = .never()
+        var toggleFavoriteStub: Single<Bool> = .never()
+        
         func fetchRestaurantDetail(id: String) -> Single<RestaurantDetailModel> {
             interactorMessages.append(.requestRestaurant(id: id))
             return fetchRestaurantDetailStub
@@ -228,6 +263,16 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         func addReview(body: AddReviewBody) -> Completable {
             interactorMessages.append(.requestAddReview(body: body))
             return addReviewStub
+        }
+        
+        func isFavorite(id: String) -> Single<Bool> {
+            interactorMessages.append(.isFavorite(id: id))
+            return isFavoriteStub
+        }
+        
+        func toggleFavorite(restaurant: RestaurantModel) -> Single<Bool> {
+            interactorMessages.append(.toggleFavorite(restaurant: restaurant))
+            return toggleFavoriteStub
         }
         
         // MARK: Router

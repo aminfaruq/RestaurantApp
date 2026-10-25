@@ -60,3 +60,16 @@ public struct MenusModel: Equatable {
         self.drinks = drinks
     }
 }
+
+extension RestaurantDetailModel {
+    public func toRestaurantModel() -> RestaurantModel {
+        .init(
+            id: id,
+            name: name,
+            description: description,
+            pictureURL: pictureURL,
+            city: city,
+            rating: rating
+        )
+    }
+}

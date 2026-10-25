@@ -43,7 +43,7 @@ final class RestaurantDetailInteractorTests: XCTestCase {
         XCTAssertEqual(receivedError?.code, expectedError.code)
         XCTAssertEqual(receivedError?.domain, expectedError.domain)
         XCTAssertEqual(spy.loadRestaurantDetailCallCount, 1)
-
+        
     }
     
     func test_fetchRestaurantDetail_deliversResultOnSuccess() async {
@@ -110,6 +110,95 @@ final class RestaurantDetailInteractorTests: XCTestCase {
         await fulfillment(of: [exp], timeout: 1.0)
         XCTAssertEqual(spy.addReviewCallCount, 1)
     }
+        
+    func test_isFavorite_deliversErrorOnFailure() async {
+        let (sut, spy) = makeSUT()
+        let expectedError = anyError()
+        spy.isFavoriteStub = .failure(expectedError)
+        
+        var receivedError: NSError?
+        let exp = expectation(description: "Wait from Single error")
+        
+        sut.isFavorite(id: "any-id")
+            .subscribe(
+                onFailure: { error in
+                    receivedError = error as NSError
+                    exp.fulfill()
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        await fulfillment(of: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(receivedError?.code, expectedError.code)
+        XCTAssertEqual(receivedError?.domain, expectedError.domain)
+        XCTAssertEqual(spy.isFavoriteCallCount, 1)
+    }
+    
+    func test_isFavorite_deliversStatusOnSuccess() async {
+        let (sut, spy) = makeSUT()
+        spy.isFavoriteStub = .success(true)
+        
+        var receivedStatus: Bool?
+        let exp = expectation(description: "Wait for isFavorite")
+        
+        sut.isFavorite(id: "any-id")
+            .subscribe(
+                onSuccess: { status in
+                    receivedStatus = status
+                    exp.fulfill()
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        await fulfillment(of: [exp], timeout: 1.0)
+        XCTAssertEqual(receivedStatus, true)
+        XCTAssertEqual(spy.isFavoriteCallCount, 1)
+    }
+    
+    func test_toggleFavorite_savesWhenNotFavorite() async {
+        let (sut, spy) = makeSUT()
+        let restaurant = RestaurantModel(id: "1", name: "A", description: "B", pictureURL: anyURL(), city: "C", rating: "4")
+        spy.isFavoriteStub = .success(false)
+        
+        var newStatus: Bool?
+        let exp = expectation(description: "Wait for toggle")
+        
+        sut.toggleFavorite(restaurant: restaurant)
+            .subscribe(onSuccess: { status in
+                newStatus = status
+                exp.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        await fulfillment(of: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(newStatus, true)
+        XCTAssertEqual(spy.saveCallCount, 1)
+        XCTAssertEqual(spy.removeCallCount, 0)
+    }
+    
+    func test_toggleFavorite_removesWhenAllreadyFavorite() async {
+        let (sut, spy) = makeSUT()
+        let restaurant = RestaurantModel(id: "1", name: "A", description: "B", pictureURL: anyURL(), city: "C", rating: "4")
+        spy.isFavoriteStub = .success(true)
+        
+        var newStatus: Bool?
+        let exp = expectation(description: "Wait for toggle")
+        
+        sut.toggleFavorite(restaurant: restaurant)
+            .subscribe(onSuccess: { status in
+                newStatus = status
+                exp.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        await fulfillment(of: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(newStatus, false)
+        XCTAssertEqual(spy.removeCallCount, 1)
+        XCTAssertEqual(spy.saveCallCount, 0)
+    }
     
     //MARK: - Helpers
     private func makeSUT(
@@ -117,7 +206,7 @@ final class RestaurantDetailInteractorTests: XCTestCase {
         line: UInt = #line
     ) -> (sut: RestaurantDetailInteractor, spy: RestaurantDetailLoaderSpy) {
         let spy = RestaurantDetailLoaderSpy()
-        let sut = RestaurantDetailInteractor(loader: spy)
+        let sut = RestaurantDetailInteractor(loader: spy, favoriteManager: spy)
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(spy, file: file, line: line)
         return (sut, spy)
@@ -154,7 +243,8 @@ final class RestaurantDetailInteractorTests: XCTestCase {
        return model
     }
     
-    private class RestaurantDetailLoaderSpy: RestaurantDetailLoader {
+    private class RestaurantDetailLoaderSpy: RestaurantDetailLoader , FavoriteRestaurantManager {
+      
         //MARK: - Load Restaurant
         private(set) var loadRestaurantDetailCallCount = 0
         private var loadRestaurantDetailStub: Result<RestaurantDetailModel, Error>?
@@ -180,5 +270,30 @@ final class RestaurantDetailInteractorTests: XCTestCase {
             addReviewCallCount += 1
             return try addReviewStub?.get() ?? ()
         }
+        
+        //MARK: - Favorite
+        private(set) var isFavoriteCallCount = 0
+        private(set) var saveCallCount = 0
+        private(set) var removeCallCount = 0
+        
+        var isFavoriteStub: Result<Bool, Error> = .success(false)
+        var saveStub: Result<Void, Error> = .success(())
+        var removeStub: Result<Void, Error> = .success(())
+        
+        func save(_ restaurant: RestaurantModel) async throws {
+             saveCallCount += 1
+            _ = try saveStub.get()
+        }
+        
+        func remove(id: String) async throws {
+            removeCallCount += 1
+            _ = try removeStub.get()
+        }
+        
+        func isFavorite(id: String) async throws -> Bool {
+            isFavoriteCallCount += 1
+            return try isFavoriteStub.get()
+        }
+        
     }
 }

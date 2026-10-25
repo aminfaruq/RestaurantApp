@@ -12,6 +12,10 @@ import UIKit
 public protocol RestaurantDetailInteractorProtocol: AnyObject {
     func fetchRestaurantDetail(id: String) -> Single<RestaurantDetailModel>
     func addReview(body: AddReviewBody) -> Completable
+    
+    // Local
+    func isFavorite(id: String) -> Single<Bool>
+    func toggleFavorite(restaurant: RestaurantModel) -> Single<Bool>
 }
 
 //MARK: - View
@@ -22,6 +26,9 @@ public protocol RestaurantDetailViewProtocol: AnyObject {
     func showMenus(_ results: [String])
     func showError(_ message: String)
     func showPopup()
+    
+    // Local
+    func setFavoriteStatus(isFavorite: Bool)
 }
 
 //MARK: - Router
@@ -39,4 +46,5 @@ public protocol RestaurantDetailPresenterProtocol: AnyObject {
     func didAddReview(_ review: AddReviewBody)
     func didDismissPopup()
     func didPullToRefresh()
+    func didTapFavoriteButton()
 }

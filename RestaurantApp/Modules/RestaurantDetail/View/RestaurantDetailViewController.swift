@@ -21,14 +21,21 @@ class RestaurantDetailViewController: UIViewController {
     
     private var customerReviews = [CustomerReviewModel]()
     private var restaurantId: String = ""
+    private var favoriteBarButtonItem: UIBarButtonItem?
     
     public var presenter: RestaurantDetailPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tabBarController?.tabBar.isHidden = true
+
         presenter?.viewDidLoad()
         setupView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     private func setupView() {
@@ -46,6 +53,22 @@ class RestaurantDetailViewController: UIViewController {
         addReviewLabel.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddReview))
         addReviewLabel.addGestureRecognizer(tapGesture)
+        
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        favoriteBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "heart"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapFavorite)
+        )
+        navigationItem.rightBarButtonItem = favoriteBarButtonItem
+    }
+    
+    @objc func didTapFavorite() {
+        presenter?.didTapFavoriteButton()
     }
     
     @objc func didTapAddReview() {
@@ -166,6 +189,12 @@ extension RestaurantDetailViewController: RestaurantDetailViewProtocol {
             self?.presenter?.didDismissPopup()
         }))
         present(alert, animated: true)
+    }
+    
+    func setFavoriteStatus(isFavorite: Bool) {
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        favoriteBarButtonItem?.image = UIImage(systemName: imageName)
+        favoriteBarButtonItem?.tintColor = isFavorite ? .systemRed : .label
     }
 }
 

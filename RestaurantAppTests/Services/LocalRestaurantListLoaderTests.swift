@@ -8,6 +8,7 @@
 import XCTest
 import RestaurantApp
 
+@MainActor
 final class LocalRestaurantListLoaderTests: XCTestCase {
     
     func test_init_doesNotMessageStoreUponCreation() {
