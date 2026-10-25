@@ -51,7 +51,7 @@ public final class RemoteRestaurantDetailLoader: RestaurantDetailLoader {
                 guard let root = try? JSONDecoder().decode(RootDTO.self, from: data) else {
                     throw NetworkError.decodeError
                 }
-                return root.toModel()
+                return root.restaurant.toModel()
             default:
                 throw NetworkError.invalidData
         }
@@ -79,6 +79,10 @@ public final class RemoteRestaurantDetailLoader: RestaurantDetailLoader {
     }
     
     private struct RootDTO: Decodable {
+        let restaurant: RemoteRestaurantDTO
+    }
+    
+    private struct RemoteRestaurantDTO: Decodable {
         private let id, name, description, city: String
         private let address, pictureId: String
         private let categories: [CategoryDTO]
@@ -103,7 +107,7 @@ public final class RemoteRestaurantDetailLoader: RestaurantDetailLoader {
         }
         
         private func makeImageURL(from picture: String) -> URL {
-            if let baseURL = RootDTO.imageBaseURL {
+            if let baseURL = RemoteRestaurantDTO.imageBaseURL {
                 return baseURL.appending(path: pictureId)
             }
             

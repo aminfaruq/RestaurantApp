@@ -63,7 +63,7 @@ final class RemoteRestaurantDetailLoaderTests: XCTestCase {
         let (sut, spy) = makeSUT()
         let id = "rqdv5juczeskfw1e867"
         let result = makeResult(id: id)
-        let json = try! JSONSerialization.data(withJSONObject: result.json)
+        let json = makeRestaurant(result.json)
         spy.stub(withStatusCode: 200, data: json)
         
         let receivedResult = try await sut.loadRestaurantDetail(id: id)
@@ -144,6 +144,14 @@ final class RemoteRestaurantDetailLoaderTests: XCTestCase {
         
         let data = try! JSONSerialization.data(withJSONObject: json, options: .sortedKeys)
         return HTTPBody(data: data, contentType: .json)
+    }
+    
+    private func makeRestaurant(_ restaurant: [String: Any]) -> Data {
+        let json: [String: Any] = [
+            "restaurant": restaurant
+        ]
+        
+        return try! JSONSerialization.data(withJSONObject: json)
     }
     
     private func makeResult(
