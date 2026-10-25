@@ -19,6 +19,7 @@ public protocol RestaurantDetailViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showRestaurant(_ restaurant: RestaurantDetailModel)
+    func showMenus(_ results: [String])
     func showError(_ message: String)
     func showPopup()
 }

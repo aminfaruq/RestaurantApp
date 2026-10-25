@@ -62,6 +62,8 @@ public final class RestaurantDetailPresenter: RestaurantDetailPresenterProtocol 
                 onSuccess: { [weak self] result in
                     guard let self = self else { return }
                     view?.hideLoading()
+                    let menus = (result.menus.foods + result.menus.drinks).map({ $0.name })
+                    view?.showMenus(menus)
                     view?.showRestaurant(result)
                 },
                 onFailure: { [weak self] error in

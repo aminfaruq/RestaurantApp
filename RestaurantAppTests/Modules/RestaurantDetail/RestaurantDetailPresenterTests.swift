@@ -41,7 +41,7 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         let id = "another-id"
         let (sut, spy) = makeSUT(id: id)
         let expectedResult = makeRestaurant(id: id)
-        
+        let expectedMenus = (expectedResult.menus.foods + expectedResult.menus.drinks).map { $0.name }
         spy.fetchRestaurantDetailStub = .just(expectedResult)
         sut.viewDidLoad()
         
@@ -50,6 +50,7 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         XCTAssertEqual(spy.viewMessages, [
             .showLoading,
             .hideLoading,
+            .showMenus(expectedMenus),
             .showRestaurant(expectedResult)
         ])
     }
@@ -166,11 +167,14 @@ final class RestaurantDetailPresenterTests: XCTestCase {
     }
     
     private class ViewSpy: RestaurantDetailViewProtocol, RestaurantDetailInteractorProtocol, RestaurantDetailRouterProtocol {
+       
+        
         // MARK: View
         enum ViewMessage: Equatable {
             case showLoading
             case hideLoading
             case showRestaurant(_ restaurant: RestaurantDetailModel)
+            case showMenus(_ results: [String])
             case showError(_ message: String)
             case showPopup
         }
@@ -187,6 +191,10 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         
         func showRestaurant(_ restaurant: RestaurantDetailModel) {
             viewMessages.append(.showRestaurant(restaurant))
+        }
+        
+        func showMenus(_ results: [String]) {
+            viewMessages.append(.showMenus(results))
         }
         
         func showError(_ message: String) {
