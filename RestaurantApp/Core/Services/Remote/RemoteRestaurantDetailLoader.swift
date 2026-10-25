@@ -7,11 +7,6 @@
 
 import Foundation
 
-public protocol RestaurantDetailLoader {
-    func loadRestaurantDetail(id: String) async throws -> RestaurantDetailModel
-    func addReview(review: AddReviewBody) async throws
-}
-
 public struct AddReviewBody: Hashable {
     public let id: String
     public let name: String

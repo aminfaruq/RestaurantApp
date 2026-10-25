@@ -7,10 +7,6 @@
 
 import Foundation
 
-public protocol RestaurantListLoader {
-    func loadRestaurant(query: String) async throws -> [RestaurantModel]
-}
-
 public final class RemoteRestaurantListLoader: RestaurantListLoader {
     
     private let url: URL

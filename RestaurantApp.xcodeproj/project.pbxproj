@@ -11,6 +11,9 @@
 		83FD59C8308BBE8700BC3A57 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD59C7308BBE8700BC3A57 /* RxTest */; };
 		83FD59CB308BBFD300BC3A57 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD59CA308BBFD300BC3A57 /* Kingfisher */; };
 		83FD5A69308DDE1100BC3A57 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD5A68308DDE1100BC3A57 /* netfox */; };
+		83FD5A83308E5BCA00BC3A57 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD5A82308E5BCA00BC3A57 /* RealmSwift */; };
+		83FD5A8E308E617000BC3A57 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD5A8D308E617000BC3A57 /* RealmSwift */; };
+		83FD5A8F308E617000BC3A57 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 83FD5A8D308E617000BC3A57 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,6 +25,20 @@
 			remoteInfo = RestaurantApp;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		83FD5A90308E617000BC3A57 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				83FD5A8F308E617000BC3A57 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		83FD5974308B87DB00BC3A57 /* RestaurantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83FD5A83308E5BCA00BC3A57 /* RealmSwift in Frameworks */,
 				83FD59CB308BBFD300BC3A57 /* Kingfisher in Frameworks */,
 				83FD59C6308BBE8700BC3A57 /* RxSwift in Frameworks */,
 				83FD5A69308DDE1100BC3A57 /* netfox in Frameworks */,
@@ -69,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83FD5A8E308E617000BC3A57 /* RealmSwift in Frameworks */,
 				83FD59C8308BBE8700BC3A57 /* RxTest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +100,7 @@
 			children = (
 				83FD5976308B87DB00BC3A57 /* RestaurantApp */,
 				83FD5991308B883A00BC3A57 /* RestaurantAppTests */,
+				83FD5A8C308E617000BC3A57 /* Frameworks */,
 				83FD5975308B87DB00BC3A57 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +112,13 @@
 				83FD5990308B883A00BC3A57 /* RestaurantAppTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		83FD5A8C308E617000BC3A57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,6 +144,7 @@
 				83FD59C5308BBE8700BC3A57 /* RxSwift */,
 				83FD59CA308BBFD300BC3A57 /* Kingfisher */,
 				83FD5A68308DDE1100BC3A57 /* netfox */,
+				83FD5A82308E5BCA00BC3A57 /* RealmSwift */,
 			);
 			productName = RestaurantApp;
 			productReference = 83FD5974308B87DB00BC3A57 /* RestaurantApp.app */;
@@ -129,6 +157,7 @@
 				83FD598C308B883A00BC3A57 /* Sources */,
 				83FD598D308B883A00BC3A57 /* Frameworks */,
 				83FD598E308B883A00BC3A57 /* Resources */,
+				83FD5A90308E617000BC3A57 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -141,6 +170,7 @@
 			name = RestaurantAppTests;
 			packageProductDependencies = (
 				83FD59C7308BBE8700BC3A57 /* RxTest */,
+				83FD5A8D308E617000BC3A57 /* RealmSwift */,
 			);
 			productName = RestaurantAppTests;
 			productReference = 83FD5990308B883A00BC3A57 /* RestaurantAppTests.xctest */;
@@ -178,6 +208,7 @@
 				83FD59C4308BBE8700BC3A57 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				83FD59C9308BBFD300BC3A57 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				83FD5A67308DDE1100BC3A57 /* XCRemoteSwiftPackageReference "netfox" */,
+				83FD5A81308E5BCA00BC3A57 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 83FD5975308B87DB00BC3A57 /* Products */;
@@ -515,6 +546,14 @@
 				minimumVersion = 1.21.0;
 			};
 		};
+		83FD5A81308E5BCA00BC3A57 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = community;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -537,6 +576,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83FD5A67308DDE1100BC3A57 /* XCRemoteSwiftPackageReference "netfox" */;
 			productName = netfox;
+		};
+		83FD5A82308E5BCA00BC3A57 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83FD5A81308E5BCA00BC3A57 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		83FD5A8D308E617000BC3A57 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83FD5A81308E5BCA00BC3A57 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
