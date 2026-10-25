@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: macos-15
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+
+    - name: Show Xcode version
+      run: xcodebuild -version
+
+    - name: Install xcbeautify
+      run: brew install xcbeautify
+
+    - name: Cache SPM dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/Library/Caches/org.swift.swiftpm
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+
+    - name: Cache DerivedData
+      uses: actions/cache@v4
+      with:
+        path: ~/Library/Developer/Xcode/DerivedData
+        key: ${{ runner.os }}-derived-data-${{ hashFiles('RestaurantApp.xcodeproj/project.pbxproj', '**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-derived-data-
+
+    - name: Run RestaurantApp Tests
+      run: |
+        xcodebuild test \
+          -project RestaurantApp.xcodeproj \
+          -scheme RestaurantApp \
+          -destination 'platform=iOS Simulator,name=iPhone 16' \
+          -enableCodeCoverage YES \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO \
+          | xcbeautify && exit ${PIPESTATUS[0]}
