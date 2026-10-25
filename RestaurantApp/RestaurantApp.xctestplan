@@ -9,16 +9,26 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:RestaurantApp.xcodeproj",
+          "identifier" : "83FD5973308B87DB00BC3A57",
+          "name" : "RestaurantApp"
+        }
+      ]
+    },
     "performanceAntipatternCheckerEnabled" : true,
     "targetForVariableExpansion" : {
       "containerPath" : "container:RestaurantApp.xcodeproj",
       "identifier" : "83FD5973308B87DB00BC3A57",
       "name" : "RestaurantApp"
-    }
+    },
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:RestaurantApp.xcodeproj",
         "identifier" : "83FD598F308B883A00BC3A57",

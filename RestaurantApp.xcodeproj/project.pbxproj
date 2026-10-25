@@ -10,6 +10,7 @@
 		83FD59C6308BBE8700BC3A57 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD59C5308BBE8700BC3A57 /* RxSwift */; };
 		83FD59C8308BBE8700BC3A57 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD59C7308BBE8700BC3A57 /* RxTest */; };
 		83FD59CB308BBFD300BC3A57 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD59CA308BBFD300BC3A57 /* Kingfisher */; };
+		83FD5A69308DDE1100BC3A57 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = 83FD5A68308DDE1100BC3A57 /* netfox */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 			files = (
 				83FD59CB308BBFD300BC3A57 /* Kingfisher in Frameworks */,
 				83FD59C6308BBE8700BC3A57 /* RxSwift in Frameworks */,
+				83FD5A69308DDE1100BC3A57 /* netfox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +116,7 @@
 			packageProductDependencies = (
 				83FD59C5308BBE8700BC3A57 /* RxSwift */,
 				83FD59CA308BBFD300BC3A57 /* Kingfisher */,
+				83FD5A68308DDE1100BC3A57 /* netfox */,
 			);
 			productName = RestaurantApp;
 			productReference = 83FD5974308B87DB00BC3A57 /* RestaurantApp.app */;
@@ -174,6 +177,7 @@
 			packageReferences = (
 				83FD59C4308BBE8700BC3A57 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				83FD59C9308BBFD300BC3A57 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				83FD5A67308DDE1100BC3A57 /* XCRemoteSwiftPackageReference "netfox" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 83FD5975308B87DB00BC3A57 /* Products */;
@@ -503,6 +507,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		83FD5A67308DDE1100BC3A57 /* XCRemoteSwiftPackageReference "netfox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kasketis/netfox";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.21.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -520,6 +532,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83FD59C9308BBFD300BC3A57 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		83FD5A68308DDE1100BC3A57 /* netfox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83FD5A67308DDE1100BC3A57 /* XCRemoteSwiftPackageReference "netfox" */;
+			productName = netfox;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

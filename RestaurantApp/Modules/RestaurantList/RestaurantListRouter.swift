@@ -28,5 +28,7 @@ final class RestaurantListRouter: RestaurantListRouterProtocol {
     
     func navigateToDetail(view: (any RestaurantListViewProtocol)?, id: String) {
         guard let sourceView = view as? UIViewController else { return }
+        let view = RestaurantDetailRouter.createModule(id: id)
+        sourceView.navigationController?.pushViewController(view, animated: true)
     }
 }

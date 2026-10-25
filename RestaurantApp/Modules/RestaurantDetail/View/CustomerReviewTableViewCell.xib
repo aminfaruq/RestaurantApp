@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="65" id="KGk-i7-Jjw" customClass="CustomerReviewTableViewCell" customModule="RestaurantApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NzM-JX-E2f">
+                        <rect key="frame" x="12" y="12" width="36" height="36"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-Qc-Ff6">
+                                <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="g4g-Qc-Ff6" secondAttribute="trailing" id="1sB-Xm-DjI"/>
+                            <constraint firstAttribute="bottom" secondItem="g4g-Qc-Ff6" secondAttribute="bottom" id="3Na-43-fqG"/>
+                            <constraint firstItem="g4g-Qc-Ff6" firstAttribute="top" secondItem="NzM-JX-E2f" secondAttribute="top" id="7M2-qs-2c2"/>
+                            <constraint firstItem="g4g-Qc-Ff6" firstAttribute="leading" secondItem="NzM-JX-E2f" secondAttribute="leading" id="geh-U9-az1"/>
+                            <constraint firstAttribute="width" constant="36" id="pvW-Wk-aa7"/>
+                            <constraint firstAttribute="height" constant="36" id="qYl-2J-zIO"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="oG8-l4-0JV">
+                        <rect key="frame" x="56" y="8" width="252" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ahmad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELf-nU-BVL">
+                                <rect key="frame" x="0.0" y="0.0" width="39.666666666666664" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 oktober" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unR-iZ-fGd">
+                                <rect key="frame" x="214.66666666666669" y="0.0" width="37.333333333333343" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Uss-Za-t5v"/>
+                        </constraints>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tidak ramah di kantong" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vy4-qg-yu8">
+                        <rect key="frame" x="56" y="32" width="256" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Vy4-qg-yu8" firstAttribute="leading" secondItem="NzM-JX-E2f" secondAttribute="trailing" constant="8" id="8Vq-uh-0qW"/>
+                    <constraint firstAttribute="trailing" secondItem="oG8-l4-0JV" secondAttribute="trailing" constant="12" id="LR9-xB-QgY"/>
+                    <constraint firstAttribute="bottom" secondItem="Vy4-qg-yu8" secondAttribute="bottom" constant="12" id="Ng8-w7-S1g"/>
+                    <constraint firstAttribute="trailing" secondItem="Vy4-qg-yu8" secondAttribute="trailing" constant="8" id="Pfg-Dl-3Yo"/>
+                    <constraint firstItem="Vy4-qg-yu8" firstAttribute="top" secondItem="oG8-l4-0JV" secondAttribute="bottom" constant="4" id="Sat-pQ-98X"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NzM-JX-E2f" secondAttribute="bottom" constant="12" id="Y2B-P5-aBr"/>
+                    <constraint firstItem="NzM-JX-E2f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Yry-Ey-IL8"/>
+                    <constraint firstItem="oG8-l4-0JV" firstAttribute="leading" secondItem="NzM-JX-E2f" secondAttribute="trailing" constant="8" id="ZCX-Ps-PG9"/>
+                    <constraint firstItem="oG8-l4-0JV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="anf-Za-v0l"/>
+                    <constraint firstItem="NzM-JX-E2f" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="uXq-fn-Btq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="avatarContainerView" destination="NzM-JX-E2f" id="uUw-Jq-9kE"/>
+                <outlet property="dateLabel" destination="unR-iZ-fGd" id="hpU-Mo-bFN"/>
+                <outlet property="initialNameLabel" destination="g4g-Qc-Ff6" id="gvu-OC-S5U"/>
+                <outlet property="nameLabel" destination="ELf-nU-BVL" id="Wzd-1t-Cj0"/>
+                <outlet property="reviewLabel" destination="Vy4-qg-yu8" id="7sq-rH-tkx"/>
+            </connections>
+            <point key="canvasLocation" x="138.93129770992365" y="160.91549295774649"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
