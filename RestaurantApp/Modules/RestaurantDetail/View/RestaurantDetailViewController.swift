@@ -142,7 +142,22 @@ extension RestaurantDetailViewController: RestaurantDetailViewProtocol {
     }
     
     func showError(_ message: String) {
-
+        let alert = UIAlertController(
+            title: "Something Went Wrong",
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+            self?.presenter?.viewDidLoad()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(retryAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
     }
     
     func showPopup() {
