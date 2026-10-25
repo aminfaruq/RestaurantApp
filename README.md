@@ -9,6 +9,12 @@ An iOS app that lists restaurants and shows their details, built with UIKit and 
 - Remote image loading and caching
 - Unit tests for the interactors, presenters, loaders and HTTP client
 
+## Demo
+
+| Restaurant List | Search | Detail | Menu and Reviews |
+| :---: | :---: | :---: | :---: |
+| <img src="1.png" width="200" alt="Restaurant list"> | <img src="2.png" width="200" alt="Search results"> | <img src="3.png" width="200" alt="Restaurant detail"> | <img src="4.png" width="200" alt="Menu and reviews"> |
+
 ## Tech Stack
 
 - Swift, UIKit (XIB-based views)
