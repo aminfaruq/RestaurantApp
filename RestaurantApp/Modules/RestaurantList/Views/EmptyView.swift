@@ -20,7 +20,7 @@ class EmptyView: UIView {
     }
     
     func configure(title: String) {
-        emptyLabel.text = "No Results for `\(title)` "
+        emptyLabel.text = title.isEmpty ? "No Results": "No Results for `\(title)` "
     }
     
 }
