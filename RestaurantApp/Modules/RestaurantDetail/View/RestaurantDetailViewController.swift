@@ -9,6 +9,7 @@ import UIKit
 
 class RestaurantDetailViewController: UIViewController {
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var imageView: UIImageView!
@@ -22,6 +23,8 @@ class RestaurantDetailViewController: UIViewController {
     private var customerReviews = [CustomerReviewModel]()
     private var restaurantId: String = ""
     private var favoriteBarButtonItem: UIBarButtonItem?
+    
+    private let refreshControl = UIRefreshControl()
     
     public var presenter: RestaurantDetailPresenterProtocol?
     
@@ -39,6 +42,7 @@ class RestaurantDetailViewController: UIViewController {
     }
     
     private func setupView() {
+        scrollView.refreshControl = refreshControl
         customerReviewTableView.delegate = self
         customerReviewTableView.dataSource = self
         customerReviewTableView.register(UINib(nibName: "CustomerReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomerReviewTableViewCell")
@@ -53,6 +57,7 @@ class RestaurantDetailViewController: UIViewController {
         addReviewLabel.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddReview))
         addReviewLabel.addGestureRecognizer(tapGesture)
+        refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
         
         setupNavigationBar()
     }
@@ -69,6 +74,10 @@ class RestaurantDetailViewController: UIViewController {
     
     @objc func didTapFavorite() {
         presenter?.didTapFavoriteButton()
+    }
+    
+    @objc func pullToRefresh() {
+        presenter?.didPullToRefresh()
     }
     
     @objc func didTapAddReview() {
@@ -134,6 +143,7 @@ extension RestaurantDetailViewController: RestaurantDetailViewProtocol {
     
     func hideLoading() {
         contentView.isHidden = false
+        refreshControl.endRefreshing()
         activityIndicatorView.stopAnimating()
     }
     

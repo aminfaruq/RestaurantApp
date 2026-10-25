@@ -19,6 +19,7 @@
                 <outlet property="horizontalStackView" destination="sO9-sY-QPm" id="PkJ-Cv-NLP"/>
                 <outlet property="imageView" destination="H8g-f7-nOl" id="qea-LQ-B0a"/>
                 <outlet property="restaurantNameLabel" destination="OYs-GW-2gf" id="iyo-ZD-ky1"/>
+                <outlet property="scrollView" destination="YGa-oX-pLD" id="Iuu-5I-44Q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
