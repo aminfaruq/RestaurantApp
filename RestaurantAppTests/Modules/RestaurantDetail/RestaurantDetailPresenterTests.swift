@@ -77,8 +77,6 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         XCTAssertEqual(spy.interactorCallCount, 1)
         XCTAssertEqual(spy.interactorMessages, [.requestAddReview(body: request)])
         XCTAssertEqual(spy.viewMessages, [
-            .showLoading,
-            .hideLoading,
             .showError(expectedError.localizedDescription)
         ])
     }
@@ -94,8 +92,6 @@ final class RestaurantDetailPresenterTests: XCTestCase {
         XCTAssertEqual(spy.interactorCallCount, 1)
         XCTAssertEqual(spy.interactorMessages, [.requestAddReview(body: request)])
         XCTAssertEqual(spy.viewMessages, [
-            .showLoading,
-            .hideLoading,
             .showPopup
         ])
     }

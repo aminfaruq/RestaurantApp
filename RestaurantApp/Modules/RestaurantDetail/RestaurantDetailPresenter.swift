@@ -28,19 +28,15 @@ public final class RestaurantDetailPresenter: RestaurantDetailPresenterProtocol 
     }
     
     public func didAddReview(_ review: AddReviewBody) {
-        view?.showLoading()
-        
         interactor?.addReview(body: review)
             .observe(on: MainScheduler.instance)
             .subscribe(
                 onCompleted: { [weak self] in
                     guard let self = self else { return }
-                    view?.hideLoading()
                     view?.showPopup()
                 },
                 onError: { [weak self] error in
                     guard let self = self else { return }
-                    view?.hideLoading()
                     view?.showError(error.localizedDescription)
                 }
             )
