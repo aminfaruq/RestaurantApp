@@ -71,7 +71,7 @@ public final class RemoteRestaurantDetailLoader: RestaurantDetailLoader {
         }
         
         switch response.statusCode {
-            case 200:
+            case 201:
                 return
             default:
                 throw NetworkError.invalidData

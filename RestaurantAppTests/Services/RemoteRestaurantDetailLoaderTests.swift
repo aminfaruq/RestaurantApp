@@ -108,9 +108,9 @@ final class RemoteRestaurantDetailLoaderTests: XCTestCase {
         }
     }
     
-    func test_addReview_deliversSuccessOn200StatusCode() async {
+    func test_addReview_deliversSuccessOn201StatusCode() async {
         let (sut, spy) = makeSUT()
-        spy.stub(withStatusCode: 200, data: Data())
+        spy.stub(withStatusCode: 201, data: Data())
         
         do {
             try await sut.addReview(review: makeReview())
