@@ -14,7 +14,7 @@
                 <outlet property="addReviewLabel" destination="dDL-Vt-8Pc" id="gPW-63-mgm"/>
                 <outlet property="cityLabel" destination="k0i-SJ-46h" id="tXw-xc-43S"/>
                 <outlet property="contentView" destination="i3C-Ed-1gf" id="Y5I-Tx-QsK"/>
-                <outlet property="customerReviewTableView" destination="Ysc-gK-2Fo" id="rTf-QE-WP4"/>
+                <outlet property="customerReviewTableView" destination="Ysc-gK-2Fo" id="Lz8-op-sDo"/>
                 <outlet property="descriptionLabel" destination="IPG-MM-JK4" id="1X1-SM-hTA"/>
                 <outlet property="horizontalStackView" destination="sO9-sY-QPm" id="PkJ-Cv-NLP"/>
                 <outlet property="imageView" destination="H8g-f7-nOl" id="qea-LQ-B0a"/>
@@ -27,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="1094"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YGa-oX-pLD">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGa-oX-pLD">
                     <rect key="frame" x="0.0" y="118" width="393" height="908"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3C-Ed-1gf">
@@ -77,7 +77,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yg4-F5-8IP">
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yg4-F5-8IP">
                                     <rect key="frame" x="0.0" y="413.33333333333337" width="393" height="128"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sle-1K-XeO">
@@ -106,7 +106,7 @@
                                         <constraint firstItem="Sle-1K-XeO" firstAttribute="top" secondItem="Yg4-F5-8IP" secondAttribute="top" id="wLv-Lt-1qt"/>
                                     </constraints>
                                 </scrollView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ysc-gK-2Fo">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ysc-gK-2Fo" customClass="SelfSizingTableView" customModule="RestaurantApp" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="595.33333333333337" width="393" height="312.66666666666663"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </tableView>
