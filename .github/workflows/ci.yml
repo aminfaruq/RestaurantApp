@@ -15,30 +15,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Select Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
-
     - name: Show Xcode version
       run: xcodebuild -version
 
     - name: Install xcbeautify
       run: brew install xcbeautify
 
-    - name: Cache SPM dependencies
-      uses: actions/cache@v4
-      with:
-        path: ~/Library/Caches/org.swift.swiftpm
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-spm-
-
-    - name: Cache DerivedData
-      uses: actions/cache@v4
-      with:
-        path: ~/Library/Developer/Xcode/DerivedData
-        key: ${{ runner.os }}-derived-data-${{ hashFiles('RestaurantApp.xcodeproj/project.pbxproj', '**/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-derived-data-
+    - name: List available destinations
+      run: xcodebuild -showdestinations -scheme RestaurantApp
 
     - name: Run RestaurantApp Tests
       run: |
